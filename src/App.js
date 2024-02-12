@@ -9,6 +9,8 @@ import Profile from "./pages/Profile";
 import PresentetionForm from "./pages/PresentetionForm";
 import PresentetionList from "./pages/PresentetionList";
 import Presentetion from "./pages/Presentetion";
+import ComponentRouter from "./pages/ComponentRouter";
+import ListUsers from "./pages/ListUsers";
 
 import MyButton from "./components/MyButton";
 import ButtonList from "./components/ButtonList";
@@ -23,6 +25,8 @@ const App = () => {
                 <MyButton to="presentetionForm" />
                 <MyButton to="presentetionList" />
                 <ButtonList to="presentetion" />
+                <MyButton to="componentRouter" />
+                <MyButton to="listUsers" />
 
                 <Routes>
                     <Route path="/" element={<Home />} />
@@ -31,6 +35,8 @@ const App = () => {
                     <Route path="/presentetionForm" element={<PresentetionForm />} />
                     <Route path="/presentetionList"  element={<PresentetionList />} />
                     <Route path="/presentetion" element={<Presentetion />} />
+                    <Route path="/componentRouter" element={<ComponentRouter />} />
+                    <Route path="/listUsers" element={<ListUsers />} />
                 </Routes>
 
 
