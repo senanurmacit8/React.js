@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./ListUsers.css"
+import "./css/ListUsers.css"
 
 
 const ListUsers = () => {
@@ -25,7 +25,6 @@ const ListUsers = () => {
 
       <div>
         <table>
-          <caption>deneme Table </caption>
           <thead>
             <tr>
               <th scope="col">name</th>
@@ -34,8 +33,10 @@ const ListUsers = () => {
               <th scope="col">country</th>
             </tr>
           </thead>
+
           <tbody >
-            {data.map((item) => {
+            {data.map((item,index) => {
+
               return (
                 <tr>
                   {Object.entries(item).map((field) => {
@@ -47,6 +48,7 @@ const ListUsers = () => {
               );
             })}
           </tbody>
+
         </table>
       </div>
     </div>
