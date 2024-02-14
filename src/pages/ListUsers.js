@@ -4,7 +4,7 @@ import "./css/ListUsers.css"
 
 const ListUsers = () => {
 
-  const url = "http://localhost:8080/hello";
+  const url = "http://localhost:8080/users";
   const [data, setData] = useState([]);
 
   const fetchInfo = () => {
@@ -35,7 +35,7 @@ const ListUsers = () => {
           </thead>
 
           <tbody >
-            {data.map((item,index) => {
+            {data.map((item) => {
 
               return (
                 <tr>
