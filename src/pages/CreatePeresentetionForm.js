@@ -10,7 +10,7 @@ class CreatePeresentetionForm extends Component {
       conferenceName: '',
       conferenceDuration: '',
       userName: '',
-      islightningSelectedRadioButton:false
+      islightningSelectedRadioButton: false
     };
 
     this.handleChangeRadio = this.handleChangeRadio.bind(this);
@@ -32,12 +32,39 @@ class CreatePeresentetionForm extends Component {
     event.preventDefault();
   }
 
+/*
   handleChangeRadio(event) {
-    if(event=='lightning'){
-      this.state.islightningSelectedRadioButton=true; 
-    }
+    if (event == 'lightning') {
+
+      this.state.islightningSelectedRadioButton = true;
+    } else { this.state.islightningSelectedRadioButton = false; }
+
+
     alert('Your conference duration has been lightning. (5 min) ' + this.state.islightningSelectedRadioButton);
   }
+  */
+
+  handleChangeRadio = (value) => {
+/*    this.setState({
+      islightningSelectedRadioButton: value,
+    });*/
+
+    if(value=='lightning'){
+      this.setState({
+        islightningSelectedRadioButton: true,
+      });
+
+      this.setState({
+        conferenceDuration: '5',
+      });
+
+    }else {
+      this.setState({
+        islightningSelectedRadioButton: false,
+      });
+    }
+  };
+
 
   handleSubmit(event) {
     console.log("Conference creation hadleSubmit started ....")
@@ -73,7 +100,7 @@ class CreatePeresentetionForm extends Component {
     });
   }
 
-  render() {    
+  render() {
 
     return (
       <form onSubmit={this.handleSubmit}>
@@ -84,16 +111,22 @@ class CreatePeresentetionForm extends Component {
           </label>
           <tr>
             <label>
-              <RadioGroup name='radioButton' onChange={this.handleChangeRadio}  horizontal>
+              <RadioGroup name='radioButton' onChange={this.handleChangeRadio} horizontal>
                 <RadioButton value="lightning" > lightning </RadioButton>
                 <RadioButton value="min" > min</RadioButton>
               </RadioGroup>
             </label>
           </tr>
-          <tr>
-            <label hidden={this.state.islightningSelectedRadioButton}>
-              ConferenceDuration:
-              <input type="text" name='conferenceDuration'  onChange={this.handleChange} />
+          <tr>            
+            <label >
+              ConferenceDuration: 
+              <input type="text" name='conferenceDuration2'
+                hidden={!this.state.islightningSelectedRadioButton} value='5'
+                onChange={this.handleChange} />
+
+              <input type="text" name='conferenceDuration'
+                hidden={this.state.islightningSelectedRadioButton}
+                onChange={this.handleChange} />
               min.
             </label>
           </tr>
