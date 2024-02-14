@@ -13,42 +13,44 @@ const Agenda = () => {
       .then((d) => setData(d))
   }
 
-
   useEffect(() => {
     fetchInfo();
   }, []);
 
 
   return (
-
     <div>
-
       <div>
         <table>
-          <thead>
-            <tr>
-              <th scope="col">conferenceName</th>
-              <th scope="col">conferenceDateTime</th>
-              <th scope="col"> conferenceDuration</th>
-              <th scope="col">userName</th>
-            </tr>
-          </thead>
-
-          <tbody >
-            {data.map((item) => {
-
+            {data.map((item1) => {
               return (
                 <tr>
-                  {Object.entries(item).map((field) => {
-                    return (
-                      <td>{field[1]}</td>
-                    )
+                  <thead>session</thead>
+                  <thead>
+                    <tr>
+                     <th scope="col">conferenceName</th>
+                     <th scope="col">conferenceDateTime</th>
+                     <th scope="col"> conferenceDuration</th>
+                     <th scope="col">userName</th>
+                    </tr>  
+                    </thead>
+                    <tbody >
+                  {item1.map((item2) => {
+                    return (                  
+                    <tr>
+                      {Object.entries(item2).map((field) => {
+                          return (
+                            <td>{field[1]}</td>
+                          )
+                        })}
+                        </tr>
+                      
+                    );
                   })}
+                 </tbody>
                 </tr>
               );
             })}
-          </tbody>
-
         </table>
       </div>
     </div>
