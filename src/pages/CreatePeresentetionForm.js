@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { RadioGroup, RadioButton } from 'react-radio-buttons';
 
 class CreatePeresentetionForm extends Component {
 
@@ -7,19 +8,19 @@ class CreatePeresentetionForm extends Component {
 
     this.state = {
       conferenceName: '',
-      conferenceDateTime: '',
       conferenceDuration: '',
-      userName:''
+      userName: '',
+      islightningSelectedRadioButton:false
     };
 
+    this.handleChangeRadio = this.handleChangeRadio.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
- 
+
   handleInputChange = (event) => {
     this.setState({
       [event.target.onferenceName]: event.target.value,
-      [event.target.conferenceDateTime]: event.target.value,
       [event.target.conferenceDuration]: event.target.value,
       [event.target.userName]: event.target.value
     });
@@ -27,8 +28,13 @@ class CreatePeresentetionForm extends Component {
 
   handleSubmit(event) {
     alert('A name was submitted: ' + this.state.userName);
-    
+
     event.preventDefault();
+  }
+
+  handleChangeRadio(event) {
+    this.setState({lightningSelectedRadioButton: true});
+    alert('Your conference duration has been lightning. (5 min) ');
   }
 
   handleSubmit(event) {
@@ -38,18 +44,16 @@ class CreatePeresentetionForm extends Component {
     const data = new FormData(event.target);
 
     console.log(data.get('conferenceName'));
-    console.log(data.get('conferenceDateTime'));
     console.log(data.get('conferenceDuration'));
     console.log(data.get('userName'));
 
 
     console.log(
       JSON.stringify({
-        name : data.get('conferenceName'),
-        lastname : data.get('conferenceDateTime'),
-        job : data.get('conferenceDuration'),
-        country :data.get('userName')
-       })
+        name: data.get('conferenceName'),
+        job: data.get('conferenceDuration'),
+        country: data.get('userName')
+      })
     );
 
     fetch('http://localhost:8080/addConference', {
@@ -59,15 +63,19 @@ class CreatePeresentetionForm extends Component {
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: JSON.stringify({
-        name : data.get('conferenceName'),
-        lastname : data.get('conferenceDateTime'),
-        job : data.get('conferenceDuration'),
-        country :data.get('userName')
-       })
+        name: data.get('conferenceName'),
+        lastname: data.get('conferenceDateTime'),
+        job: data.get('conferenceDuration'),
+        country: data.get('userName')
+      })
     });
   }
 
   render() {
+
+    const islightningSelectedRadioButton = this.state.islightningSelectedRadioButton;
+    
+
     return (
       <form onSubmit={this.handleSubmit}>
         <tr>
@@ -77,15 +85,17 @@ class CreatePeresentetionForm extends Component {
           </label>
           <tr>
             <label>
-              ConferenceDateTime:
-              <input type="text" name='conferenceDateTime' onChange={this.handleChange} />
+              <RadioGroup onChange={this.handleChangeRadio} horizontal>
+                <RadioButton value="lightning">lightning </RadioButton>
+                <RadioButton value="min"> min</RadioButton>
+              </RadioGroup>
             </label>
           </tr>
           <tr>
             <label>
               ConferenceDuration:
-              <input type="text" name='conferenceDuration' onChange={this.handleChange} />
-               min.
+              <input type="text" name='conferenceDuration' hidden={this.islightningSelectedRadioButton} onChange={this.handleChange} />
+              min.
             </label>
           </tr>
           <tr>
@@ -96,17 +106,8 @@ class CreatePeresentetionForm extends Component {
           </tr>
           <tr>
             <label>
-              Date:
-              <input type="date" id="start" name="date"
-                 min="2018-01-01" max="2018-12-31"  onChange={this.handleChange} ></input>
-                 <input type="time" id="start" name="time"
-                 min="2018-01-01" max="2018-12-31"  onChange={this.handleChange} ></input>
-            </label>
-          </tr>
-          <tr>
-            <label>
-              Summary: 
-              <textarea name="postContent" rows={4} cols={40}/>
+              Summary:
+              <textarea name="postContent" rows={4} cols={40} />
             </label>
           </tr>
         </tr>
