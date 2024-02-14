@@ -20,7 +20,7 @@ class CreatePeresentetionForm extends Component {
 
   handleInputChange = (event) => {
     this.setState({
-      [event.target.onferenceName]: event.target.value,
+      [event.target.conferenceName]: event.target.value,
       [event.target.conferenceDuration]: event.target.value,
       [event.target.userName]: event.target.value
     });
@@ -33,8 +33,10 @@ class CreatePeresentetionForm extends Component {
   }
 
   handleChangeRadio(event) {
-    this.setState({lightningSelectedRadioButton: true});
-    alert('Your conference duration has been lightning. (5 min) ');
+    if(event=='lightning'){
+      this.state.islightningSelectedRadioButton=true; 
+    }
+    alert('Your conference duration has been lightning. (5 min) ' + this.state.islightningSelectedRadioButton);
   }
 
   handleSubmit(event) {
@@ -71,10 +73,7 @@ class CreatePeresentetionForm extends Component {
     });
   }
 
-  render() {
-
-    const islightningSelectedRadioButton = this.state.islightningSelectedRadioButton;
-    
+  render() {    
 
     return (
       <form onSubmit={this.handleSubmit}>
@@ -85,16 +84,16 @@ class CreatePeresentetionForm extends Component {
           </label>
           <tr>
             <label>
-              <RadioGroup onChange={this.handleChangeRadio} horizontal>
-                <RadioButton value="lightning">lightning </RadioButton>
-                <RadioButton value="min"> min</RadioButton>
+              <RadioGroup name='radioButton' onChange={this.handleChangeRadio}  horizontal>
+                <RadioButton value="lightning" > lightning </RadioButton>
+                <RadioButton value="min" > min</RadioButton>
               </RadioGroup>
             </label>
           </tr>
           <tr>
-            <label>
+            <label hidden={this.state.islightningSelectedRadioButton}>
               ConferenceDuration:
-              <input type="text" name='conferenceDuration' hidden={this.islightningSelectedRadioButton} onChange={this.handleChange} />
+              <input type="text" name='conferenceDuration'  onChange={this.handleChange} />
               min.
             </label>
           </tr>
